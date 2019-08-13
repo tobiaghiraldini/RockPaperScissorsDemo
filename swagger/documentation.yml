@@ -1,0 +1,19 @@
+api:
+  info:
+    version: '1'
+    title: Rock Paper Scissors API
+    description: API based on AWS Lambda, typescript, with tests environment abstraction.
+    contact:
+      name: Tobia Ghiraldini
+    license:
+      name: MIT
+  tags:
+    - name: RockPaperScissors
+      description: Two player api for Rock paper scissors.
+    - name: Health
+      description: Health check.
+models:
+  - ${file(./swagger/error-responses/error-response.yml)}
+  - ${file(./src/game/swagger/post-game-response.yml)}
+  - ${file(./src/health/swagger/get-health-check.yml)}
+  - ${file(./src/health/swagger/get-health-check-detailed.yml)}

@@ -1,0 +1,11 @@
+name: PostGameRequest
+contentType: "application/json"
+schema:
+  type: object
+  properties:
+    move1:
+      type: string
+      description: The player 1 choice
+    move2:
+      type: string
+      description: The player 2 choice

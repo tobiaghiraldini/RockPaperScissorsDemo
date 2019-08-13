@@ -1,0 +1,14 @@
+name: PostGameResponse
+contentType: "application/json"
+schema:
+  type: object
+  properties:
+    move1:
+      type: string
+      description: The player 1 move record.
+    move2:
+      type: string
+      description: The player 2 move record.
+    result:
+      type: string
+      description: The game output.

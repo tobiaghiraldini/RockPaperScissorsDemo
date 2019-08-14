@@ -1,8 +1,8 @@
 import { expect } from 'chai';
 import { Chance } from 'chance';
-import { instance, mock, reset } from 'ts-mockito';
+import { instance, mock, reset, when } from 'ts-mockito';
 
-import { GameMove, GameResult } from './game.interfaces';
+import { GameItems, GameMove, GameResult, GameResults, ValidMoves } from './game.interfaces';
 import { GameRepository } from './game.repository';
 import { GameService } from './game.service';
 
@@ -21,17 +21,34 @@ describe('GameService', () => {
     reset(gameRepositoryMock);
     service = new GameService(gameRepositoryMockInstance);
     testMove1 = {
-      choice: chance.pickone(['Rock', 'Paper', 'Scissors']),
+      choice: chance.pickone(ValidMoves),
     };
     testMove2 = {
-      choice: chance.pickone(['Rock', 'Paper', 'Scissors']),
+      choice: chance.pickone(ValidMoves),
     };
   });
 
   describe('getResult function', () => {
     it('should resolve with a GameResult output', async () => {
+      testMove1 = {
+        choice: GameItems.paper,
+      };
+      testMove2 = {
+        choice: GameItems.rock,
+      };
+      const testResult: GameResult = {
+        move1: testMove1.choice,
+        move2: testMove2.choice,
+        result: GameResults.win
+      };
+      console.log(testMove1, testMove2);
+      when(gameRepositoryMock.isValid(testMove1, testMove2)).thenReturn(true);
+      when(gameRepositoryMock.getResult(testMove1, testMove2)).thenReturn(testResult);
       const result: GameResult = await service.getResult(testMove1, testMove2);
+      console.log(result);
       expect(result.result);
+      expect(result.move1).to.equal(testMove1.choice);
+      expect(result.move2).to.equal(testMove2.choice);
     });
   });
 });

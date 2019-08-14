@@ -11,4 +11,8 @@ export class GameService {
       resolve(result);
     });
   }
+
+  public isValid(move1: GameMove, move2: GameMove): boolean {
+    return this.gameRepository.isValid(move1, move2);
+  }
 }

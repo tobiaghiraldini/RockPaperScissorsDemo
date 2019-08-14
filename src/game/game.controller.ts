@@ -18,13 +18,19 @@ export class GameController {
       return ResponseBuilder.badRequest(ErrorCode.InvalidBodyFormat, 'The body must contain two choices as string', callback);
     }
     // Validation
+    let move1: string;
+    let move2: string;
+    try {
+      const gameRequest: GameRequest = JSON.parse(event.body);
+      move1 = gameRequest.move1.toLowerCase();
+      move2 = gameRequest.move2.toLowerCase();
+    } catch (e) {
+      return ResponseBuilder.badRequest(ErrorCode.InvalidBodyFormat, 'The body must contain proper moves', callback);
+    }
 
-    const gameRequest: GameRequest = JSON.parse(event.body);
     let gamemove1: GameMove;
     let gamemove2: GameMove;
     try {
-      const move1: string = gameRequest.move1;
-      const move2: string = gameRequest.move2;
       gamemove1 = {
         choice: move1
       };
@@ -33,6 +39,10 @@ export class GameController {
       };
     } catch (e) {
       return ResponseBuilder.badRequest(ErrorCode.InvalidBodyFormat, 'The body must contain proper moves', callback);
+    }
+    console.log(gamemove1, gamemove2)
+    if (!this.gameService.isValid(gamemove1, gamemove2)) {
+      return ResponseBuilder.badRequest(ErrorCode.InvalidBodyContent, 'Allowed moves are rock, paper, scissors', callback);
     }
     this.gameService.getResult(gamemove1, gamemove2)
       .then((result: GameResult) =>

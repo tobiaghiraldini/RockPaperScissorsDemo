@@ -1,9 +1,13 @@
-import { GameMove, GameResult, GameResults } from './game.interfaces';
+import { GameItems, GameMove, GameResult, GameResults, ValidMoves } from './game.interfaces';
 
 export class RockPaperScissorsRules {
 
   public static getResult(move1: GameMove, move2: GameMove): GameResult {
     return RockPaperScissorsRules.applyRules(move1, move2);
+  }
+
+  public static isValid(move1: GameMove, move2: GameMove): boolean {
+    return ValidMoves.indexOf(move1.choice) >= 0  && ValidMoves.indexOf(move2.choice) >= 0;
   }
 
   private static applyRules(move1: GameMove, move2: GameMove): GameResult {
@@ -18,15 +22,15 @@ export class RockPaperScissorsRules {
       result: ''
     };
 
-    if (move1 === move2) {
+    if (move1.choice === move2.choice) {
       return {
         ...baseResult,
         result: GameResults.draw
       };
     }
     switch (move1.choice) {
-      case 'Paper':
-        if (move2.choice === 'Rock') {
+      case GameItems.paper:
+        if (move2.choice === GameItems.rock) {
           return {
             ...baseResult,
             result: GameResults.win
@@ -36,8 +40,8 @@ export class RockPaperScissorsRules {
           ...baseResult,
           result: GameResults.loss
         };
-      case 'Rock':
-        if (move2.choice === 'Paper') {
+      case GameItems.rock:
+        if (move2.choice === GameItems.paper) {
           return {
             ...baseResult,
             result: GameResults.loss
@@ -47,8 +51,8 @@ export class RockPaperScissorsRules {
           ...baseResult,
           result: GameResults.win
         };
-      case 'Scissors':
-        if (move2.choice === 'Rock') {
+      case GameItems.scissors:
+        if (move2.choice === GameItems.rock) {
           return {
             ...baseResult,
             result: GameResults.loss
@@ -61,7 +65,7 @@ export class RockPaperScissorsRules {
       default:
         return {
           ...baseResult,
-          result: ''
+          result: 'Invalid game'
         };
     }
   }

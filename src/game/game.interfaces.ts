@@ -5,6 +5,11 @@ export const GameItems = {
   scissors: 'scissors'
 };
 
+// tslint:disable-next-line:variable-name
+export const ValidMoves: string[] = [
+  GameItems.paper, GameItems.rock, GameItems.scissors
+];
+
 // tslint:disable-next-line:typedef variable-name
 export const GameResults = {
   draw: 'draw',

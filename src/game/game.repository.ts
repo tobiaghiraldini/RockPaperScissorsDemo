@@ -6,4 +6,8 @@ export class GameRepository {
   public getResult(move1: GameMove, move2: GameMove): GameResult {
     return RockPaperScissorsRules.getResult(move1, move2);
   }
+
+  public isValid(move1: GameMove, move2: GameMove): boolean {
+    return RockPaperScissorsRules.isValid(move1, move2);
+  }
 }

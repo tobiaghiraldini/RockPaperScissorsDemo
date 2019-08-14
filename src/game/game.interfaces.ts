@@ -17,6 +17,10 @@ export const GameResults = {
   win: 'win'
 };
 
+export const ValidResults: string[] = [
+  GameResults.draw, GameResults.win, GameResults.loss
+]
+
 export interface GameMove {
   choice: string;
 }

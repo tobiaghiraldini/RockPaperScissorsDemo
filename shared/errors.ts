@@ -16,4 +16,6 @@ export class InternalServerErrorResult extends ErrorResult {}
 
 export class NotFoundResult extends ErrorResult {}
 
+export class InvalidGameResult extends ErrorResult {}
+
 // tslint:enable

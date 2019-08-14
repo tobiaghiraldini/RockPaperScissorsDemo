@@ -22,11 +22,9 @@ describe('GameService', () => {
     service = new GameService(gameRepositoryMockInstance);
     testMove1 = {
       choice: chance.pickone(['Rock', 'Paper', 'Scissors']),
-      player: chance.name()
     };
     testMove2 = {
       choice: chance.pickone(['Rock', 'Paper', 'Scissors']),
-      player: chance.name()
     };
   });
 

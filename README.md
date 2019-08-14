@@ -69,7 +69,7 @@ npm install
 
 ### Endpoints
 
-This project shows example Lambda function implementations with the following layers (see the `src/cities` folder):
+This project shows example Lambda function implementations with the following layers (see the `src/game` folder):
 
 - **Handler**: The handler is the endpoint that is called by AWS when it executes your Lambda. See `game.ts`.
 - **Controller**: The controller is responsible for transforming any operation result to an HTTP response. See `game.controller.ts`.
@@ -84,10 +84,16 @@ Additional terms:
 - **Response**: The HTTP output for an endpoint call. It includes the HTTP status code, the response headers and the response body. The controller is responsible for building the response, using the `ResponseBuilder` helper class.
 - **Result**: The outcome of the service call. It can be a success result or an error result.
 
-To understand the code, open `src/game/game.ts`, find the `getResult` function and follow the call chain.
+To understand the code, open `src/game/game.ts`, find the `getGameResult` function and follow the call chain.
 
-### Tests case
+### Tests cases
 
+- **GameController**:
+    - Response Status Code check
+    - Response Result check
+- **GameService**:
+    - IsValid check
+    - Result check
 
 ### Swagger export
 
@@ -120,16 +126,22 @@ Additional useful `npm script`s:
 
 ### Test the service locally
 
-**To invoke the Lambda function locally, run:** _This command requires Administrator privileges on Windows!_
+**To invoke the Lambda function locally, run:**
 
 ```
 serverless invoke local --function getGameResult
 ```
 
-**To run the service locally, run:** _This command requires Administrator privileges on Windows!_
+**To run the service locally, run:**
 
 ```bash
 npm start
+```
+
+or
+
+```bash
+serverless offline start
 ```
 
 This command will not terminate, but will keep running a webserver that you can use to locally test your service. Verify that the service runs perfectly by opening the `http://localhost:3000` URL in your browser. The console window will log your requests.
@@ -209,3 +221,54 @@ The integration tests are automatically running after deployment, so you don't n
 ### View the documentation
 
 To view the generated Swagger documentation, deploy your API or start it locally, and then call the `/swagger.json` endpoint.
+
+### Demo Deploy
+
+```bash
+Serverless: Compiling with Typescript...
+Serverless: Using local tsconfig.json
+Serverless: Typescript compiled.
+Serverless: Packaging service...
+Serverless: Excluding development dependencies...
+Serverless: Uploading CloudFormation file to S3...
+Serverless: Uploading artifacts...
+Serverless: Uploading service rockpaperscissors.zip file to S3 (24.38 KB)...
+Serverless: Validating template...
+Serverless: Updating Stack...
+Serverless: Checking Stack update progress...
+....................................
+Serverless: Stack update finished...
+Service Information
+service: rockpaperscissors
+stage: demo
+region: eu-central-1
+stack: rockpaperscissors-demo
+resources: 37
+api keys:
+  None
+endpoints:
+  GET - https://1vevegreue.execute-api.eu-central-1.amazonaws.com/demo/swagger.json
+  GET - https://1vevegreue.execute-api.eu-central-1.amazonaws.com/demo/health/check
+  GET - https://1vevegreue.execute-api.eu-central-1.amazonaws.com/demo/health/detailed
+  POST - https://1vevegreue.execute-api.eu-central-1.amazonaws.com/demo/game
+functions:
+  getSwaggerJson: rockpaperscissors-demo-getSwaggerJson
+  getHealthCheck: rockpaperscissors-demo-getHealthCheck
+  getHealthCheckDetailed: rockpaperscissors-demo-getHealthCheckDetailed
+  getResult: rockpaperscissors-demo-getResult
+layers:
+  None
+-------------------
+documentation version already exists, skipping upload
+Serverless: Stack Output saved to file: .serverless/output.json
+Serverless: Removing old service artifacts from S3...
+Serverless: Run the "serverless" command to setup monitoring, troubleshooting and testing.
+
+```
+
+### Live Demo endpoints
+
+[Swagger](https://1vevegreue.execute-api.eu-central-1.amazonaws.com/demo/swagger.json)
+[Health check](https://1vevegreue.execute-api.eu-central-1.amazonaws.com/demo/health/check)
+[Health check detailed](https://1vevegreue.execute-api.eu-central-1.amazonaws.com/demo/health/detailed)
+[Game api demo](https://1vevegreue.execute-api.eu-central-1.amazonaws.com/demo/game)

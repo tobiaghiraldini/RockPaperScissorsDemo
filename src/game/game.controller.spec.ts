@@ -7,7 +7,6 @@ import { ApiResponseParsed } from '../../test/test.interfaces';
 import { GameController } from './game.controller';
 import { GameMove, GameRequest, GameResult, ValidMoves, ValidResults } from './game.interfaces';
 import { GameService } from './game.service';
-import { NotFoundResult } from '../../shared/errors';
 
 const chance: Chance.Chance = new Chance();
 
@@ -57,8 +56,9 @@ describe('GameController', () => {
       expect(response.parsedBody.move2).to.oneOf(ValidMoves);
       expect(response.parsedBody.result).to.oneOf(ValidResults);
     });
-    it('Should return an error with invalid moves', async () => {
-      const errorResult: NotFoundResult()
-    });
+    // TODO
+    // it('Should return an error with invalid moves', async () => {
+    //   const errorResult: NotFoundResult()
+    // });
   });
 });

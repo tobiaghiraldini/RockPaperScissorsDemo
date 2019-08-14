@@ -40,7 +40,6 @@ export class GameController {
     } catch (e) {
       return ResponseBuilder.badRequest(ErrorCode.InvalidBodyFormat, 'The body must contain proper moves', callback);
     }
-    console.log(gamemove1, gamemove2)
     if (!this.gameService.isValid(gamemove1, gamemove2)) {
       return ResponseBuilder.badRequest(ErrorCode.InvalidBodyContent, 'Allowed moves are rock, paper, scissors', callback);
     }

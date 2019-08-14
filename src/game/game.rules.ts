@@ -65,7 +65,7 @@ export class RockPaperScissorsRules {
       default:
         return {
           ...baseResult,
-          result: 'Invalid game'
+          result: 'INVALID_CONTENT'
         };
     }
   }

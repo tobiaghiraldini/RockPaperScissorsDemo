@@ -5,7 +5,7 @@ export class ApiClient {
 
   public constructor() {
     this._options = {
-      baseUrl: 'https://serverless-sample.balassy.me/api', // TODO: Get the baseUrl from config.
+      baseUrl: 'https://1vevegreue.execute-api.eu-central-1.amazonaws.com/demo', // TODO: Get the baseUrl from config.
       method: 'GET',
       resolveWithFullResponse: true
     };

@@ -30,23 +30,21 @@ export class GameController {
 
     let gamemove1: GameMove;
     let gamemove2: GameMove;
-    try {
-      gamemove1 = {
-        choice: move1
-      };
-      gamemove2 = {
-        choice: move2
-      };
-    } catch (e) {
-      return ResponseBuilder.badRequest(ErrorCode.InvalidBodyFormat, 'The body must contain proper moves', callback);
-    }
+    gamemove1 = {
+      choice: move1
+    };
+    gamemove2 = {
+      choice: move2
+    };
     if (!this.gameService.isValid(gamemove1, gamemove2)) {
       return ResponseBuilder.badRequest(ErrorCode.InvalidBodyContent, 'Allowed moves are rock, paper, scissors', callback);
     }
     this.gameService.getResult(gamemove1, gamemove2)
-      .then((result: GameResult) =>
-        ResponseBuilder.ok<GameResult>(result, callback))
-      .catch((error: ErrorResult) =>
-        ResponseBuilder.badRequest(error.code, error.description, callback));
+      .then((result: GameResult) => {
+        return ResponseBuilder.ok<GameResult>(result, callback);
+      })
+      .catch((error: ErrorResult) => {
+        return ResponseBuilder.badRequest(error.code, error.description, callback);
+    });
   }
 }

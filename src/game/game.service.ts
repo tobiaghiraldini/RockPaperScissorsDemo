@@ -7,14 +7,11 @@ export class GameService {
 
   public getResult(move1: GameMove, move2: GameMove): Promise<GameResult> {
     return new Promise((resolve: (result: GameResult) => void, reject: (reason: InvalidGameResult) => void): void => {
-      if (!this.gameRepository.isValid(move1, move2)) {
-        reject(new InvalidGameResult('INVALID_CONTENT', ''));
-        return;
-      }
+      // if (!this.gameRepository.isValid(move1, move2)) {
+      //   reject(new InvalidGameResult('INVALID_CONTENT', 'Allowed moves are rock, paper, scissors'));
+      //   return;
+      // }
       const result: GameResult = this.gameRepository.getResult(move1, move2);
-      console.log("gameservice")
-
-      console.log(result)
       resolve(result);
     });
   }

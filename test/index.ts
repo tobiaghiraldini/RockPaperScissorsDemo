@@ -1,8 +1,32 @@
 import { ApiContext, ApiEvent, ApiHandler, ApiResponse, ErrorResponseBody } from '../shared/api.interfaces';
 import { ApiErrorResponseParsed, ApiResponseParsed, PathParameter } from './test.interfaces';
 
+type PostCaller = <T> (handler: ApiHandler, body?: any) => Promise<ApiResponseParsed<T>>;
 type SuccessCaller = <T> (handler: ApiHandler, pathParameters?: PathParameter) => Promise<ApiResponseParsed<T>>;
 type FailureCaller = (handler: ApiHandler, pathParameters?: PathParameter) => Promise<ApiErrorResponseParsed>;
+
+export const postSuccess: PostCaller = <T>(handler: ApiHandler, body?: any): Promise<ApiResponseParsed<T>> => {
+  // tslint:disable-next-line:typedef
+  return new Promise((resolve, reject) => {
+    let event: ApiEvent = <ApiEvent> {};
+    event.httpMethod = 'POST';
+    event.body = body;
+    event.headers = {"Content-Type": "application/json"}
+    console.log("postsuccess caller")
+    console.log(event)
+
+    handler(event, <ApiContext> {}, (error?: Error | null | string, result?: ApiResponse): void => {
+      if (typeof result === 'undefined') {
+        reject('No result was returned by the handler!');
+        return;
+      }
+
+      const parsedResult: ApiResponseParsed<T> = result as ApiResponseParsed<T>;
+      parsedResult.parsedBody = JSON.parse(result.body) as T;
+      resolve(parsedResult);
+    });
+  });
+};
 
 // tslint:disable-next-line arrow-return-shorthand (Long function body.)
 export const callSuccess: SuccessCaller = <T>(handler: ApiHandler, pathParameters?: PathParameter): Promise<ApiResponseParsed<T>> => {

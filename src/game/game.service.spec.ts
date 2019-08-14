@@ -41,11 +41,9 @@ describe('GameService', () => {
         move2: testMove2.choice,
         result: GameResults.win
       };
-      console.log(testMove1, testMove2);
       when(gameRepositoryMock.isValid(testMove1, testMove2)).thenReturn(true);
       when(gameRepositoryMock.getResult(testMove1, testMove2)).thenReturn(testResult);
       const result: GameResult = await service.getResult(testMove1, testMove2);
-      console.log(result);
       expect(result.result);
       expect(result.move1).to.equal(testMove1.choice);
       expect(result.move2).to.equal(testMove2.choice);

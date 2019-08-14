@@ -17,6 +17,7 @@ plugins:
   - serverless-offline
   - serverless-aws-documentation
   - serverless-stack-output
+  - serverless-mocha-plugin
 
 package:
   include:
